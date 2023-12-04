@@ -1,48 +1,120 @@
-import Head from "next/head";
-import Layout, { siteTitle } from "../components/layout";
-import utilStyles from "../styles/utils.module.css";
-import { getSortedPostsData } from "../lib/posts";
-import Link from "next/link";
-import Date from "../components/date";
+import { Navbar, Link, Text, Avatar, Dropdown } from "@nextui-org/react";
+import { Layout } from "../components/Layout.js";
 
-export async function getStaticProps() {
-  const allPostsData = getSortedPostsData();
-  return {
-    props: {
-      allPostsData,
-    },
-  };
-}
+export default function Home() {
+  const collapseItems = [
+    "Profile",
+    "Dashboard",
+    "Activity",
+    "Analytics",
+    "System",
+    "Deployments",
+    "My Settings",
+    "Team Settings",
+    "Help & Feedback",
+    "Log Out",
+  ];
 
-export default function Home({ allPostsData }) {
   return (
-    <Layout home>
-      <Head>
-        <title>{siteTitle}</title>
-      </Head>
-      <section className={utilStyles.headingMd}>
-        <p>
-          Hello, I'm Manas. I'm a Solutions Architect and Technology Consultant.
-        </p>
-        <p>
-          (This is a sample website - you’ll be building a site like this on{" "}
-          <a href="https://nextjs.org/learn">our Next.js tutorial</a>.)
-        </p>
-      </section>
-      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-        <h2 className={utilStyles.headingLg}>Blog</h2>
-        <ul className={utilStyles.list}>
-          {allPostsData.map(({ id, date, title }) => (
-            <li className={utilStyles.listItem} key={id}>
-              <Link href={`/posts/${id}`}>{title}</Link>
-              <br />
-              <small className={utilStyles.lightText}>
-                <Date dateString={date} />
-              </small>
-            </li>
+    <Layout>
+      <Navbar isBordered variant="sticky">
+        <Navbar.Toggle showIn="xs" />
+        <Navbar.Brand
+          css={{
+            "@xs": {
+              w: "12%",
+            },
+          }}
+        >
+          <Text b color="inherit" size="$2xl" hideIn="xs">
+            ManasCodes
+          </Text>
+        </Navbar.Brand>
+        <Navbar.Content
+          enableCursorHighlight
+          hideIn="xs"
+          activeColor="secondary"
+          variant="highlight"
+        >
+          <Navbar.Link href="/">Home</Navbar.Link>
+          <Navbar.Link href="#">Blogs</Navbar.Link>
+          <Navbar.Link href="#">Projects</Navbar.Link>
+          <Navbar.Link href="#">About</Navbar.Link>
+        </Navbar.Content>
+        <Navbar.Content
+          css={{
+            "@xsMax": {
+              w: "100%",
+              jc: "space-between",
+            },
+          }}
+        >
+          <Dropdown placement="bottom-right">
+            <Navbar.Item>
+              <Dropdown.Trigger>
+                <Avatar
+                  bordered
+                  as="button"
+                  color="secondary"
+                  size="md"
+                  src="/images/profile.jpg"
+                />
+              </Dropdown.Trigger>
+            </Navbar.Item>
+            <Dropdown.Menu
+              aria-label="User menu actions"
+              color="secondary"
+              onAction={(actionKey) => console.log({ actionKey })}
+            >
+              <Dropdown.Item key="profile" css={{ height: "$18" }}>
+                <Text b color="inherit" css={{ d: "flex" }}>
+                  Signed in as
+                </Text>
+                <Text b color="inherit" css={{ d: "flex" }}>
+                  zoey@example.com
+                </Text>
+              </Dropdown.Item>
+              <Dropdown.Item key="settings" withDivider>
+                My Settings
+              </Dropdown.Item>
+              <Dropdown.Item key="team_settings">Team Settings</Dropdown.Item>
+              <Dropdown.Item key="analytics" withDivider>
+                Analytics
+              </Dropdown.Item>
+              <Dropdown.Item key="system">System</Dropdown.Item>
+              <Dropdown.Item key="configurations">Configurations</Dropdown.Item>
+              <Dropdown.Item key="help_and_feedback" withDivider>
+                Help & Feedback
+              </Dropdown.Item>
+              <Dropdown.Item key="logout" withDivider color="error">
+                Log Out
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </Navbar.Content>
+        <Navbar.Collapse disableAnimation>
+          {collapseItems.map((item, index) => (
+            <Navbar.CollapseItem
+              key={item}
+              activeColor="warning"
+              css={{
+                color: index === collapseItems.length - 1 ? "$error" : "",
+              }}
+              isActive={index === 2}
+            >
+              <Link
+                color="inherit"
+                css={{
+                  minWidth: "100%",
+                }}
+                href="#"
+              >
+                {item}
+              </Link>
+            </Navbar.CollapseItem>
           ))}
-        </ul>
-      </section>
+        </Navbar.Collapse>
+      </Navbar>
     </Layout>
   );
 }
