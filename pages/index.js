@@ -1,11 +1,11 @@
-import { Text, Spacer } from "@nextui-org/react";
-import Layout from "../components/layout";
 import { Box } from "../components/Box.js";
 import utilStyles from "../styles/utils.module.css";
 import { getSortedPostsData } from "../lib/posts";
 import Link from "next/link";
 import Date from "../components/date";
 import Head from "next/head";
+import { Navbar, Text, Avatar, Dropdown, Spacer } from "@nextui-org/react";
+import { Layout } from "../components/layout";
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData();
