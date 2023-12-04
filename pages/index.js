@@ -24,6 +24,9 @@ export default function Home({ allPostsData }) {
         <p>
           Hello, I'm Manas. I'm a Solutions Architect and Technology Consultant.
         </p>
+    <p>
+    I am an architect, developer and consultant specialising in ideating, designing and building solutions with exceptional digital experience. Currently, I am focussed on building solutions and solving problems using technology in addition to building responsive UI.
+    </p>
         <p>
           (This is a sample website - you’ll be building a site like this on{" "}
           <a href="https://nextjs.org/learn">our Next.js tutorial</a>.)
